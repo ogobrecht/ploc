@@ -1,0 +1,27 @@
+{
+  "name": "plpks2mddoc",
+  "version": "0.1.0",
+  "description": "Create markdown docs from PL/SQL package specifications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ogobrecht/plpks2mddoc.git"
+  },
+  "keywords": [
+    "PL/SQL",
+    "Markdown",
+    "Docs"
+  ],
+  "author": "Ottmar Gobrecht",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ogobrecht/plpks2mddoc/issues"
+  },
+  "homepage": "https://github.com/ogobrecht/plpks2mddoc#readme",
+  "dependencies": {
+    "glob": "^7.1.2"
+  }
+}
