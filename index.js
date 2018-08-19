@@ -1,66 +1,139 @@
 'use strict';
 var fs = require('fs');
 var glob = require('glob');
-var createSingleDoc = function (pathToSpec, pathToDoc) {
-  var directory, file, content, match;
+var ploc = {};
+ploc.util = {};
 
-  // We need to use one big regexpSpec which finds the package itself with the comment below or all functions/procedures with the comment above. If we separate the regexpSpec into one for the package and one for the functions/procedures we would get some overlapping text - the | (or) is essential here. If you see many of them and don't understand non capturing groups or regexpSpec at all - no problem: put the regexpSpec and the plex package spec in the online tool https://regexr.com/ and play around with it.
-  var regexpSpec = /(\s*create\s*or\s*replace\s*package(?:.|\s)+?is(?:.|\s)+?)\/\*{3,}((?:.|\s)+?)\*{3,}\/|\/\*{3,}((?:.|\s)+?)\*{3,}\/(?:.|\s)+?((?:function|procedure)(?:.|\s)+?;)/ig;
-  
-  // This regex is taken from https://regexr.com/3dns9 and splits a URL it its components: $1 - folder path. $2 - file name(including extension). $3 - file name without extension. $4 - extension. $5 - extension without dot sign. $6 - variables.
-  var regexpPath = /(.*(?:\\|\/)+)?((.*)(\.([^?\s]*)))\??(.*)?/i;
-
-  // set default
-  if (!pathToDoc) pathToDoc = '{directory}{file}';
-  pathToDoc = pathToDoc.replace(/\.\w*$/, '');
-
-  // extract directory and file from pathToSpec for replacements of {directory} and {file} in pathToDoc
-  match = pathToSpec.match(regexpPath);
-  directory = match[1] || '';
-  file = match[3];
-
-  // do the final replacements
-  pathToDoc = pathToDoc.replace('{directory}', directory).replace('{file}', file) + '.md';
-
-  fs.readFile(pathToSpec, 'utf8', function (err, text) {
-    var counter = 0;
-    if (err) throw err;
-    if (!regexpSpec.test(text)) {
-      console.log(pathToSpec + ' contains no code to process - are you sure this is a PL/SQL package?');
-    } else {
-      // reset regexp index to find all occurrences with exec - see also: https://www.tutorialspoint.com/javascript/regexp_lastindex.htm
-      regexpSpec.lastIndex = 0;
-      while (match = regexpSpec.exec(text)) {
-        if (counter === 0) {
-          // this is the package definition (first match, comment below code)
-          content = match[2] + '\n\nPACKAGE SIGNATURE / META DATA\n\n```sql\n' + match[1] + '```\n\n';
-        } else {
-          // these are the functions and procedures (all other matches, comment above code)
-          content += match[3] + '\n\nSIGNATURE\n\n```sql\n' + match[4] + '\n```\n\n';
-        }
-        counter++;
-      }
-      fs.writeFile(pathToDoc, content, function (err) {
-        if (err) throw err;
-        console.log(pathToSpec + ' => ' + pathToDoc);
-      });
-    }
-  });
-
+ploc.util.reverseString = function (string) {
+  return string.split("").reverse().join("");
 };
 
-var plpks2mddoc = function (inputFiles, outputTemplate) {
+ploc.util.capitalizeString = function (string) {
+  return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
+};
+
+ploc.util.getMarkdownHeader = function (level, header, anchor) {
+  var markdownHeader;
+  // create HTML or Markdown header depending on anchor length
+  if (anchor.length > 0) {
+    markdownHeader = '<h' + level + '>' +
+      '<a id="' + anchor + '"></a>' +
+      header +
+      '</h' + level + '>';
+    markdownHeader += '\n<!--' + (level === 1 ? '=' : '-').repeat((markdownHeader.length - 7)) + '-->';
+  } else {
+    markdownHeader = header + '\n' + (level === 1 ? '=' : '-').repeat(header.length);
+  }
+  return markdownHeader;
+};
+
+ploc.util.getAnchor = function (name) {
+  return name.trim().toLowerCase().replace(/[^\w\- ]+/g, '').replace(/\s/g, '-').replace(/\-+$/, '');
+};
+
+
+ploc.util.getOutFilePath = function (inFilePath, outFilePattern) {
+  if (!outFilePattern) outFilePattern = '{folder}/{file}.md';
+  var folder, file, match;
+  // This regex is taken from https://regexr.com/3dns9 and splits a URL it its components: $1 - folder path. $2 - file name(including extension). $3 - file name without extension. $4 - extension. $5 - extension without dot sign. $6 - variables.
+  var regexp = /(.*(?:\\|\/)+)?((.*)(\.([^?\s]*)))\??(.*)?/i;
+
+  // extract folder and file from inFilePath for replacements of {folder} and {file} in outFilePattern
+  match = inFilePath.match(regexp);
+  folder = (match[1] ? match[1].replace(/\/$/, '') : '');
+  file = match[3];
+
+  // do the final replacements and return
+  return outFilePattern.replace('{folder}', folder).replace('{file}', file);
+}
+
+
+ploc.util.getDocData = function (inFilePath) {
+  // we need to work on a reversed string, so the keywords for package, function and so on are looking ugly...
+  var regexp = /\/\*{2,}\s*((?:.|\s)+?)\s*\*{2,}\/\s*((?:.|\s)*?\s*([\w$#]+|".+?")(?:\.(?:[\w$#]+|".+?"))?\s+(reggirt|epyt|erudecorp|noitcnuf|egakcap))\s*/ig;
+  var match;
+  var code = ploc.util.reverseString(fs.readFileSync(inFilePath, 'utf8'));
+  var usedAnchors = [];
+  var data = {};
+  data.toc = '';
+  data.items = [];
+
+  // get base attributes
+  if (!regexp.test(code)) {
+    console.warn(inFilePath + ' contains no code to process!');
+  } else {
+    // reset regexp index to find all occurrences with exec - see also: https://www.tutorialspoint.com/javascript/regexp_lastindex.htm
+    regexp.lastIndex = 0;
+    while (match = regexp.exec(code)) {
+      var item = {};
+      item.description = ploc.util.reverseString(match[1]);
+      item.signature = ploc.util.reverseString(match[2]);
+      item.name = ploc.util.reverseString(match[3]);
+      item.type = ploc.util.capitalizeString(ploc.util.reverseString(match[4]));
+      data.items.push(item);
+    }
+  }
+
+  // calculate header and anchor
+  data.items.reverse().forEach(function (item, i) {
+    data.items[i].header = data.items[i].type + ' ' + data.items[i].name;
+    data.items[i].anchor = ploc.util.getAnchor(item.name);
+
+    // create GitHub compatible toc
+    if (usedAnchors.indexOf(data.items[i].anchor) !== -1) {
+      var j = 1;
+      while (usedAnchors.indexOf(data.items[i].anchor + '-' + j) !== -1 && j++ <= 10);
+      data.items[i].anchor = data.items[i].anchor + '-' + j;
+    }
+    usedAnchors.push(data.items[i].anchor);
+    data.toc += '- [' + data.items[i].header + '](#' + data.items[i].anchor + ')\n';
+  });
+
+  return data;
+};
+
+
+ploc.util.file2doc = function (inFilePath, minItemsForToc) {
+  if (!minItemsForToc) minItemsForToc = 3;
+  var doc = '';
+  var docData = ploc.util.getDocData(inFilePath);
+  var provideToc = (docData.items.length >= minItemsForToc);
+  if (provideToc) doc += '\n' + docData.toc + '\n\n';
+
+  docData.items.forEach(function (item, i) {
+    var level = (i === 0 ? 1 : 2);
+    var header = item.header;
+    var anchor = (provideToc ? item.anchor : '');
+    doc += ploc.util.getMarkdownHeader(level, header, anchor) + '\n\n' +
+      item.description + '\n\n' +
+      'SIGNATURE\n\n' +
+      '```sql\n' +
+      item.signature + '\n' +
+      '```\n\n\n';
+  });
+  return doc;
+};
+
+
+ploc.files2doc = function (inFilePattern, outFilePattern, minItemsForToc) {
+  var outFilePath;
   var options = {
     matchBase: false
   };
-  if (!inputFiles) inputFiles = '*.pks';
-  if (!outputTemplate) outputTemplate = '{directory}{file}.md';
-  glob(inputFiles, options, function (err, files) {
+  if (!inFilePattern) inFilePattern = '*.pks';
+  if (!outFilePattern) outFilePattern = '{folder}{file}.md';
+  glob(inFilePattern, options, function (err, files) {
     if (err) throw err;
-    files.forEach(function (path) {
-      createSingleDoc(path, outputTemplate);
+    files.forEach(function (inFilePath) {
+      outFilePath = ploc.util.getOutFilePath(inFilePath, outFilePattern);
+      console.log(inFilePath + ' => ' + outFilePath);
+      fs.writeFileSync(
+        outFilePath,
+        ploc.util.file2doc(inFilePath, minItemsForToc)
+      );
     });
   })
 };
 
-module.exports = plpks2mddoc;
+
+module.exports = ploc;

@@ -1,6 +1,4 @@
-# plpks2mddoc
-
-A npm package to create markdown docs from PL/SQL package specifications
+# PLOC - PL/SQL code to doc converter
 
 DO NOT USE IT - WORK IN PROGRESS
 
@@ -9,7 +7,7 @@ DO NOT USE IT - WORK IN PROGRESS
 In your repo install plpks2mddoc:
 
 ```js
-npm install plpks2mddoc
+npm install ploc
 ```
 
 
@@ -35,7 +33,7 @@ FIXME: example
 
 ### Automation with file watcher
 
-We use her chokidar - you have first to install it with `npm install chokidar-cli`
+We use here chokidar - you have first to install it with `npm install chokidar-cli`
 
 ```js
 FIXME: example
