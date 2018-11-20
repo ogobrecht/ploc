@@ -2,15 +2,20 @@
 var fs = require('fs');
 var glob = require('glob');
 var ploc = {};
+ploc.defaultInFilePattern = '**/*.pks';
+ploc.defaultOutFilePattern = '{folder}{file}.md';
 ploc.util = {};
+
 
 ploc.util.reverseString = function (string) {
   return string.split("").reverse().join("");
 };
 
+
 ploc.util.capitalizeString = function (string) {
   return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
 };
+
 
 ploc.util.getMarkdownHeader = function (level, header, anchor) {
   var markdownHeader;
@@ -27,20 +32,21 @@ ploc.util.getMarkdownHeader = function (level, header, anchor) {
   return markdownHeader;
 };
 
+
 ploc.util.getAnchor = function (name) {
   return name.trim().toLowerCase().replace(/[^\w\- ]+/g, '').replace(/\s/g, '-').replace(/\-+$/, '');
 };
 
 
 ploc.util.getOutFilePath = function (inFilePath, outFilePattern) {
-  if (!outFilePattern) outFilePattern = '{folder}/{file}.md';
+  if (!outFilePattern) outFilePattern = ploc.defaultOutFilePattern;
   var folder, file, match;
   // This regex is taken from https://regexr.com/3dns9 and splits a URL it its components: $1 - folder path. $2 - file name(including extension). $3 - file name without extension. $4 - extension. $5 - extension without dot sign. $6 - variables.
   var regexp = /(.*(?:\\|\/)+)?((.*)(\.([^?\s]*)))\??(.*)?/i;
 
   // extract folder and file from inFilePath for replacements of {folder} and {file} in outFilePattern
   match = inFilePath.match(regexp);
-  folder = (match[1] ? match[1].replace(/\/$/, '') : '');
+  folder = (match[1] ? match[1] : '');
   file = match[3];
 
   // do the final replacements and return
@@ -115,13 +121,13 @@ ploc.util.file2doc = function (inFilePath, minItemsForToc) {
 };
 
 
-ploc.files2doc = function (inFilePattern, outFilePattern, minItemsForToc) {
+ploc.files2docs = function (inFilePattern, outFilePattern, minItemsForToc) {
   var outFilePath;
   var options = {
     matchBase: false
   };
-  if (!inFilePattern) inFilePattern = '*.pks';
-  if (!outFilePattern) outFilePattern = '{folder}{file}.md';
+  if (!inFilePattern) inFilePattern = ploc.defaultInFilePattern;
+  if (!outFilePattern) outFilePattern = ploc.defaultOutFilePattern;
   glob(inFilePattern, options, function (err, files) {
     if (err) throw err;
     files.forEach(function (inFilePath) {
