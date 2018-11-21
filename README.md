@@ -53,7 +53,7 @@ END;
   - Wrapped in a code block the Signature of the package, function, procedure...
   - Depending on the number of items (configurable) a TOC is generated in front of the document
 
-Many words... Here the rendered output of our example package:
+Many words... Here the converted output of our example package:
 
 ~~~md
 # PACKAGE DEMO
