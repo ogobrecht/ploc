@@ -1,5 +1,7 @@
 # PLOC - PL/SQL code to doc converter
 
+DO NOT USE, WORK IN PROGRESS
+
 PLOC is a simple PL/SQL to doc converter which generates Markdown output. Simple means here really simple - the converter is only about 150 lines of commented JavaScript code. Here a short demo package spec which demonstrates the idea behind PLOC:
 
 ~~~sql
