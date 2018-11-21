@@ -12,8 +12,9 @@
   },
   "keywords": [
     "PL/SQL",
-    "Markdown",
-    "Doc"
+    "Doc",
+    "Converter",
+    "Markdown"
   ],
   "author": "Ottmar Gobrecht",
   "license": "MIT",
