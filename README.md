@@ -40,8 +40,8 @@ END;
 **/
 ~~~
 
-- The converter picks up everything between the keywords package, function, procedure, type or trigger and a following PL/SQL multiline comment starting with `/**`and ending with `**/` (the double stars are used to support normal multiline comments, which are not picked up)
-- Anything else is ignored - if you want to include something in your docs, you have to provide a comment in the mentioned style after the signature
+- The converter picks up everything between the keywords package, function, procedure, type or trigger and a following PL/SQL multiline comment starting with `/**` and ending with `**/` (the double stars are used to support normal multiline comments, which are not picked up)
+- Anything else is ignored - if you want to include something in your docs, you have to provide a comment in the mentioned style after the relevant signature
 - In the comments you can provide standard Markdown - anything what the target system (GitHub for example) can convert to valid HTML (we do not generate the HTML here, only the Markdown file)
 - In the example above the constant `c_demo_name` is included in the docs - if you don't want this move the code behind the comment - you decide which globals are documented and which not
 - There is no parameter parsing: the converter prints for each found item the following informations
@@ -111,6 +111,10 @@ FAQ's
 QUESTION: Why no Javadoc compatible parameter desriptions?
 
 ANSWER: In my opinion this does NOT follow the DRY principle. PL/SQL is a strong typed language. Anything you need to know is visible in the signature. There is no need to repeat the parameter in a formal way only to comment it a little bit. For short comments you can put a single line comment direct after the parameter (see parameter `p_file_collection` in function `to_zip` in the example above). If you need to write more refer to the Markdown description. On long parameter list you will more easy follow the single line comments direct after the parameters then looking around between the signature and the formal Javadoc description.
+
+QUESTION: Why do I need to put the comments below the signature?
+
+ANSWER: If we put the comments before the signature the PL/SQL compiler will strip out the comment - at least for the comment of the package itself or a standalone function, procedure or trigger. If you then get the DDL of your objects out of the database with dbms_metadata you will lose these first comments. This will be no problem if you follow the files first approach together with a version control system but who knows in what ways your code will be inspected? It would be nice for the reviewers to get all provided comments.
 
 
 ## Installation
