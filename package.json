@@ -1,6 +1,6 @@
 {
   "name": "ploc",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "PL/SQL code to doc converter",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
   "keywords": [
     "PL/SQL",
     "Doc",
+    "Generator",
     "Converter",
     "Markdown"
   ],
