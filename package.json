@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx markdown-toc -i README.md"
+    "build": "npx markdown-toc -i --maxdepth 2 README.md"
   },
   "repository": {
     "type": "git",

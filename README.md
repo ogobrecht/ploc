@@ -9,6 +9,7 @@
 - [Example for multiple files](#example-for-multiple-files)
 - [Automation with a file watcher](#automation-with-a-file-watcher)
 - [Read more about npm scripts](#read-more-about-npm-scripts)
+- [Changelog](#changelog)
 
 <!-- tocstop -->
 
@@ -173,8 +174,8 @@ Usage: ploc [options]
 
   -o, --out:   The pattern for the doc files to write
                (default is "{folder}{file}.md")
-               {folder} = in file path with trailing directory separator
-               {file} = in file name without extension
+               {folder} = source file path with trailing directory separator
+               {file} = source file name without extension
 
   -t, --toc:   How many items (methods including object/package name) the
                code must have before a toc is included
@@ -327,3 +328,26 @@ PLEX.pks => README.md
 - https://medium.freecodecamp.org/why-i-left-gulp-and-grunt-for-npm-scripts-3d6853dd22b8
 - https://css-tricks.com/why-npm-scripts/
 
+
+
+## Changelog
+
+
+### 0.4.0 - 2018-12-15
+
+- Add CLI
+- Add TOC to README
+- Changelog back into the README (feels more natural since we have now a TOC here)
+
+
+### 0.3.2 - 2018-11-25
+
+Docs only: Corrections to the readme and an additional changelog file.
+
+
+### 0.3.1 - 2018-11-21
+
+After some private usage and the initial push to npmjs.com here the first public release.
+
+Happy coding and documenting\
+Ottmar

@@ -4,7 +4,7 @@ var fs = require('fs');
 var glob = require('glob');
 var ploc = require('./ploc.js');
 
-// parse arguments: we reuse and extend ploc attributes here
+// util for parse arguments: we reuse and extend ploc attributes here
 ploc.utils.parseArguments = require('minimist');
 ploc.opts.args = {
   string: ["in", "out"],
