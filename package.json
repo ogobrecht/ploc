@@ -1,13 +1,13 @@
 {
   "name": "ploc",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "PL/SQL code to doc converter",
   "main": "ploc.js",
   "bin": {
     "ploc": "ploc-cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Please check output in file tests/test.md!\" && node ploc-cli.js -i tests/test.sql -o tests/test.md",
     "build": "npx markdown-toc -i --maxdepth 2 README.md"
   },
   "repository": {

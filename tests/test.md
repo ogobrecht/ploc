@@ -1,0 +1,102 @@
+
+- [Package test_package](#test_package)
+- [Function test_package_function](#test_package_function)
+- [Procedure test_package_procedure](#test_package_procedure)
+- [Function test_function_standalone](#test_function_standalone)
+- [Trigger test_trigger](#test_trigger)
+- [Type "Test Object"](#test-object)
+
+
+<h1><a id="test_package"></a>Package test_package</h1>
+<!--===============================================-->
+
+Test package comment: package, function, procedure, type, trigger
+
+SIGNATURE
+
+```sql
+PACKAGE test_package AUTHID current_user IS
+  c_test_name        CONSTANT VARCHAR2(30 CHAR) := 'blabla';
+  c_test_version     CONSTANT VARCHAR2(10 CHAR) := '0.1.0';
+```
+
+
+<h2><a id="test_package_function"></a>Function test_package_function</h2>
+<!---------------------------------------------------------------------->
+
+Test package function comment: package, function, procedure, type, trigger
+
+SIGNATURE
+
+```sql
+FUNCTION test_package_function (
+    p_test_parameter_1 IN my_table.my_column%TYPE, -- Test, if following keywords break the regex: package, function, procedure, type, trigger
+    p_test_parameter_2 IN VARCHAR2 -- Test, if following keywords break the regex: package, function, procedure, type, trigger
+  ) RETURN VARCHAR2;
+```
+
+
+<h2><a id="test_package_procedure"></a>Procedure test_package_procedure</h2>
+<!------------------------------------------------------------------------->
+
+Test package procedure comment: package, function, procedure, type, trigger
+
+SIGNATURE
+
+```sql
+PROCEDURE test_package_procedure (
+    p_test_parameter_1 IN VARCHAR2 -- Test, if following keywords break the regex: package, function, procedure, type, trigger
+    p_test_parameter_2 IN my_table%ROWTYPE, -- Test, if following keywords break the regex: package, function, procedure, type, trigger
+  );
+```
+
+
+<h2><a id="test_function_standalone"></a>Function test_function_standalone</h2>
+<!---------------------------------------------------------------------------->
+
+Test function standalone comment: package, function, procedure, type, trigger
+
+SIGNATURE
+
+```sql
+FUNCTION test_function_standalone (
+  p_test_parameter_1 IN my_table.my_column%TYPE, -- Test, if following keywords break the regex: package, function, procedure, type, trigger
+  p_test_parameter_2 IN VARCHAR2 -- Test, if following keywords break the regex: package, function, procedure, type, trigger
+) RETURN VARCHAR2;
+```
+
+
+<h2><a id="test_trigger"></a>Trigger test_trigger</h2>
+<!--------------------------------------------------->
+
+Test trigger comment: package, function, procedure, type, trigger
+
+SIGNATURE
+
+```sql
+TRIGGER test_trigger
+BEFORE INSERT OR UPDATE OR DELETE ON my_table
+FOR EACH ROW
+-- Test, if following keywords break the regex: package, function, procedure, type, trigger
+-- Test, if following keywords break the regex: package, function, procedure, type, trigger
+-- Test, if following keywords break the regex: package, function, procedure, type, trigger
+```
+
+
+<h2><a id="test-object"></a>Type "Test Object"</h2>
+<!------------------------------------------------>
+
+Test object comment: package, function, procedure, type, trigger
+
+SIGNATURE
+
+```sql
+TYPE "Test Schema"."Test Object" AS OBJECT (
+  first_name  VARCHAR2(50),
+  last_name   VARCHAR2(50),
+  date_of_birth  DATE,
+  MEMBER FUNCTION getAge RETURN NUMBER
+);
+```
+
+

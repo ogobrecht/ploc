@@ -115,7 +115,7 @@ FUNCTION to_zip (
 ```
 ~~~
 
-For a bigger example simply see the [PLEX project](https://github.com/ogobrecht/plex), which uses PLOC for the generation of the project README.md file:
+For a bigger example see the [PLEX project](https://github.com/ogobrecht/plex), which uses PLOC for the generation of the project README.md file:
 
 - [The package source code](https://github.com/ogobrecht/plex/blob/master/PLEX.pks)
 - [The README file rendered as HTML by GitHub](https://github.com/ogobrecht/plex)
@@ -153,7 +153,7 @@ Add a new npm script entry in your package.json - here an example from my PLEX p
     "build:docs": "npx ploc --in PLEX.pks --out README.md",
   },
   "dependencies": {
-    "ploc": "^0.4.0"
+    "ploc": "^0.4.1"
   }
 }
 ```
@@ -218,7 +218,7 @@ We add now a script called `build:all_docs` to our package.json:
     "build:all_docs": "npx ploc",
   },
   "dependencies": {
-    "ploc": "^0.4.0"
+    "ploc": "^0.4.1"
   }
 }
 ```
@@ -247,7 +247,7 @@ One common use case is to place all docs in a docs folder - we change therefore 
     "build:all_docs": "npx --out docs/{file}.md",
   },
   "dependencies": {
-    "ploc": "^0.4.0"
+    "ploc": "^0.4.1"
   }
 }
 ```
@@ -277,7 +277,7 @@ We use here [chokidar](https://www.npmjs.com/package/chokidar-cli) - you can ins
   },
   "dependencies": {
     "chokidar-cli": "^1.2.1",
-    "ploc": "^0.4.0"
+    "ploc": "^0.4.1"
   }
 }
 ```
@@ -331,6 +331,13 @@ PLEX.pks => README.md
 
 
 ## Changelog
+
+
+### 0.4.1 - 2018-12-18
+
+- Fixed: parsing regex breaks when keywords `package`, `function`, `procedure`, `trigger` or `type` found in a signature (not the starting one, sure, but in a line comment or type declaration)
+  - example with two problems: `demo_param my_table.my_column%TYPE --A cool function param`)
+- New (manual) test script
 
 
 ### 0.4.0 - 2018-12-15

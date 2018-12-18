@@ -41,8 +41,8 @@ ploc.utils.getAnchor = function (name) {
 // function to creata your own output instead of using `ploc.getDoc(code)`
 ploc.getDocData = function (code) {
 
-  // We need to work on a reversed string, so the keywords for package, function and so on are looking ugly...
-  var regexp = /\/\*{2,}\s*((?:.|\s)+?)\s*\*{2,}\/\s*((?:.|\s)*?\s*([\w$#]+|".+?")(?:\.(?:[\w$#]+|".+?"))?\s+(reggirt|epyt|erudecorp|noitcnuf|egakcap))\s*/ig;
+  // We need to work on a reversed string to avoid to fetch too much text, so the keywords for package, function and so on are looking ugly...
+  var regexp = /\/\*{2,}\s*((?:.|\s)+?)\s*\*{2,}\/\s*((?:.|\s)*?\s*([\w$#]+|".+?")(?:\.(?:[\w$#]+|".+?")){0,1}\s+(reggirt|epyt|erudecorp|noitcnuf|egakcap))\s*(?:(?:ECALPER\s+RO\s+){0,1}ETAERC){0,1}\s*$/gim;
   var match;
   var anchors = [];
   var data = {};
