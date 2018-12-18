@@ -336,7 +336,7 @@ PLEX.pks => README.md
 ### 0.4.1 - 2018-12-18
 
 - Fixed: parsing regex breaks when keywords `package`, `function`, `procedure`, `trigger` or `type` found in a signature (not the starting one, sure, but in a line comment or type declaration)
-  - example with two problems: `demo_param my_table.my_column%TYPE --A cool function param`)
+  - example with two problems: `demo_param my_table.my_column%TYPE --A cool function param`
 - New (manual) test script
 
 
