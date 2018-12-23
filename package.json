@@ -7,7 +7,7 @@
     "ploc": "ploc-cli.js"
   },
   "scripts": {
-    "test": "echo \"Please check output in file tests/test.md!\" && node ploc-cli.js -i tests/test.sql -o tests/test.md",
+    "test": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i 'tests/*.*(pks|sql)'",
     "build": "npx markdown-toc -i --maxdepth 2 README.md"
   },
   "repository": {
