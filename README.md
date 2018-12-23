@@ -193,9 +193,9 @@ Usage: ploc [options]
 
   -d, --debug:  Write CLI arguments to console
 
-Example 1: npx ploc --in **/*.pks --out {folder}{file}.md
+Example 1: npx ploc --in '**/*.pks' --out {folder}{file}.md
 Example 2: npx ploc --out docs/{file}.md
-Example 3: npx ploc -i **/*.sql -o docs/{file}.md -t 5
+Example 3: npx ploc -i '**/*.*(pks|sql)' -o docs/{file}.md -t 5
 https://blog.npmjs.org/post/162869356040/introducing-npx-an-npm-package-runner
 ```
 
