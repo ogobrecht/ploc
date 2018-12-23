@@ -346,6 +346,15 @@ PLEX.pks => README.md
 ## Changelog
 
 
+
+### 0.5.0 - 2018-12-23
+
+- Add "Do not edit..." message to generated files
+- Add `debug` param to CLI for parsed arguments
+- Improved README regarding glob patterns
+- Internal renamings
+
+
 ### 0.4.1 - 2018-12-18
 
 - Fixed: parsing regex breaks when keywords `package`, `function`, `procedure`, `trigger` or `type` found in a signature (not the starting one, sure, but in a line comment or type declaration)
