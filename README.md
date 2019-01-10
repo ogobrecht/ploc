@@ -137,9 +137,9 @@ For a bigger example see the following two projects which are using PLOC for the
 
 ## FAQ
 
-QUESTION: Why no Javadoc compatible parameter desriptions?
+QUESTION: Why no JavaDoc compatible parameter desriptions?
 
-ANSWER: In my opinion this does NOT follow the DRY principle. PL/SQL is a strong typed language. Anything you need to know is visible in the signature. There is no need to repeat the parameters in a formal way only to comment a little bit. For short comments you can put single line comments direct after the parameters (see parameter `p_file_collection` in function `to_zip` in the example above). If you need to write more refer to the Markdown description in your comments. On long parameter lists you will more easily follow the single line comments direct after the parameters then looking around between the signature and the formal Javadoc comments.
+ANSWER: In my opinion this does NOT follow the DRY principle and is error prone. PL/SQL is a strong typed language. Anything you need to know is visible in the signature. There is no need to repeat the parameters in a formal way only to comment a little bit. For short comments you can put single line comments direct after the parameters (see parameter `p_file_collection` in function `to_zip` in the example above). If you need to write more refer to the Markdown main comment. On long parameter lists you will more easily follow the single line comments direct after the parameters then looking around between the signature and the formal JavaDoc comments.
 
 QUESTION: Why do I need to put the comments below the signature?
 
