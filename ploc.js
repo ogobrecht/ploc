@@ -50,6 +50,7 @@ ploc.getDocData = function (code) {
   var regexItem = /\/\*{2,}\s*((?:.|\s)+?)\s*\*{2,}\/\s*((?:.|\s)*?\s*([\w$#]+|".+?")(?:\.(?:[\w$#]+|".+?")){0,1}\s+(reggirt|epyt|erudecorp|noitcnuf|egakcap))\s*(?:(?:ECALPER\s+RO\s+){0,1}ETAERC){0,1}\s*$/gim;
   var regexHeaderSetext = /(^(?:\s*(?:\r\n|\n|\r))* {0,3}\S.+(?:\r\n|\n|\r) {0,3}=+ *)(?:\r\n|\n|\r)/;
   var regexHeaderAtx = /(^(?:\s*(?:\r\n|\n|\r))* {0,3}# +.+)(?:\r\n|\n|\r)/;
+  var regexLeadingWhitespace = /^(?:\s*(?:\r\n|\n|\r))*/;
   var match;
   var anchors = [];
   var data = {};
@@ -91,14 +92,18 @@ ploc.getDocData = function (code) {
     }
 
     // process global document header, if provided in first item (index = 0)
-    if (i === 0){
+    if (i === 0) {
       if (match = regexHeaderSetext.exec(data.items[i].description)) {
         data.header = match[1];
-        data.items[i].description = data.items[i].description.replace(regexHeaderSetext, '')
+        data.items[i].description = data.items[i].description
+          .replace(regexHeaderSetext, '')
+          .replace(regexLeadingWhitespace, '');
       }
       else if (match = regexHeaderAtx.exec(data.items[i].description)) {
         data.header = match[1];
-        data.items[i].description = data.items[i].description.replace(regexHeaderAtx, '')
+        data.items[i].description = data.items[i].description
+          .replace(regexHeaderAtx, '')
+          .replace(regexLeadingWhitespace, '');
       }
     }
 
@@ -116,7 +121,7 @@ ploc.getDoc = function (code) {
   var docData = ploc.getDocData(code);
   var provideToc = (docData.items.length >= ploc.opts.minItemsForToc);
 
-  if (docData.header) doc += docData.header + '\n\n';
+  if (docData.header) doc += docData.header + '\n\n\n';
   if (provideToc) doc += '\n' + docData.toc + '\n\n';
 
   docData.items.forEach(function (item, i) {
