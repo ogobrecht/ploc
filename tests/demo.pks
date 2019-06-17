@@ -2,6 +2,7 @@ CREATE OR REPLACE PACKAGE DEMO AUTHID current_user IS
 c_demo_name CONSTANT VARCHAR2(30 CHAR) := 'A demo package for PLOC';
 /**
 PL/SQL Demo Package
+===================
 
 You can use standard markdown here to describe your package, functions and procedures.
 
@@ -31,6 +32,7 @@ BEGIN
 
   -- do something with the zip file...
 END;
+{{/}}
 ```
 **/
 

@@ -37,28 +37,39 @@ ploc.utils.getAnchor = function (name) {
 };
 
 
+ploc.utils.getAndStripLeadingHeader = function (description, headerLevel) {
+  return 'testus';
+};
+
+
 // helper function to get the doc data as JSON object - you can use this
 // function to creata your own output instead of using `ploc.getDoc(code)`
 ploc.getDocData = function (code) {
 
   // We need to work on a reversed string to avoid to fetch too much text, so the keywords for package, function and so on are looking ugly...
-  var regexp = /\/\*{2,}\s*((?:.|\s)+?)\s*\*{2,}\/\s*((?:.|\s)*?\s*([\w$#]+|".+?")(?:\.(?:[\w$#]+|".+?")){0,1}\s+(reggirt|epyt|erudecorp|noitcnuf|egakcap))\s*(?:(?:ECALPER\s+RO\s+){0,1}ETAERC){0,1}\s*$/gim;
+  var regexItem = /\/\*{2,}\s*((?:.|\s)+?)\s*\*{2,}\/\s*((?:.|\s)*?\s*([\w$#]+|".+?")(?:\.(?:[\w$#]+|".+?")){0,1}\s+(reggirt|epyt|erudecorp|noitcnuf|egakcap))\s*(?:(?:ECALPER\s+RO\s+){0,1}ETAERC){0,1}\s*$/gim;
+  var regexHeaderSetext = /(^(?:\s*(?:\r\n|\n|\r))* {0,3}\S.+(?:\r\n|\n|\r) {0,3}=+ *)(?:\r\n|\n|\r)/;
+  var regexHeaderAtx = /(^(?:\s*(?:\r\n|\n|\r))* {0,3}# +.+)(?:\r\n|\n|\r)/;
   var match;
   var anchors = [];
   var data = {};
+  data.header = '';
   data.toc = '';
   data.items = [];
   code = ploc.utils.reverseString(code);
 
   // get base attributes
-  if (!regexp.test(code)) {
+  if (!regexItem.test(code)) {
     console.warn('PLOC: Document contains no code to process!');
   } else {
-    // reset regexp index to find all occurrences with exec - see also: https://www.tutorialspoint.com/javascript/regexp_lastindex.htm
-    regexp.lastIndex = 0;
-    while (match = regexp.exec(code)) {
+    // reset regexItem index to find all occurrences with exec - see also: https://www.tutorialspoint.com/javascript/regexItem_lastindex.htm
+    regexItem.lastIndex = 0;
+    while (match = regexItem.exec(code)) {
       var item = {};
-      item.description = ploc.utils.reverseString(match[1]);
+      item.description = ploc.utils.reverseString(match[1])
+        .replace('{{@}}','@')  // special SQL*Plus replacements. SQL*Plus is reacting on those special
+        .replace('{{#}}','#')  // characters when they occur as the first character in a line of code.
+        .replace('{{/}}','/'); // That can be bad when you try to write Markdown with sample code.
       item.signature = ploc.utils.reverseString(match[2]);
       item.name = ploc.utils.reverseString(match[3]);
       item.type = ploc.utils.capitalizeString(ploc.utils.reverseString(match[4]));
@@ -79,6 +90,18 @@ ploc.getDocData = function (code) {
       }
     }
 
+    // process global document header, if provided in first item (index = 0)
+    if (i === 0){
+      if (match = regexHeaderSetext.exec(data.items[i].description)) {
+        data.header = match[1];
+        data.items[i].description = data.items[i].description.replace(regexHeaderSetext, '')
+      }
+      else if (match = regexHeaderAtx.exec(data.items[i].description)) {
+        data.header = match[1];
+        data.items[i].description = data.items[i].description.replace(regexHeaderAtx, '')
+      }
+    }
+
     anchors.push(data.items[i].anchor);
     data.toc += '- [' + data.items[i].header + '](#' + data.items[i].anchor + ')\n';
   });
@@ -93,10 +116,11 @@ ploc.getDoc = function (code) {
   var docData = ploc.getDocData(code);
   var provideToc = (docData.items.length >= ploc.opts.minItemsForToc);
 
+  if (docData.header) doc += docData.header + '\n\n';
   if (provideToc) doc += '\n' + docData.toc + '\n\n';
 
   docData.items.forEach(function (item, i) {
-    var level = (i === 0 ? 1 : 2);
+    var level = (i === 0 && !docData.header ? 1 : 2);
     var header = item.header;
     var anchor = (provideToc ? item.anchor : '');
     var markdownHeader = ploc.utils.getMarkdownHeader(level, header, anchor);
