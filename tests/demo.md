@@ -4,20 +4,15 @@ PL/SQL Demo Package
 ===================
 
 
-- [Package DEMO](#demo)
-- [Function to_zip](#to_zip)
-
-
-<h2><a id="demo"></a>Package DEMO</h2>
-<!----------------------------------->
-
+Package DEMO
+------------
 
 You can use standard markdown here to describe your package, functions and procedures.
 
 - This is a list entry
 - A second one
 
-[A link](https://daringfireball.net/projects/markdown/basics).
+[A link to Markdown basics](https://daringfireball.net/projects/markdown/basics).
 
 SIGNATURE
 
@@ -27,33 +22,32 @@ c_demo_name CONSTANT VARCHAR2(30 CHAR) := 'A demo package for PLOC';
 ```
 
 
-<h2><a id="to_zip"></a>Function to_zip</h2>
-<!---------------------------------------->
+Function demo_function
+----------------------
 
-Convert a file collection to a zip file.
+Description of the function.
 
 EXAMPLE
 
 ```sql
 DECLARE
-  l_zip BLOB;
+  l_result VARCHAR2(100);
 BEGIN
-    l_zip := plex.to_zip(plex.backapp(
-      p_app_id             => 100,
-      p_include_object_ddl => true
-    ));
-
-  -- do something with the zip file...
+  l_result := demo_function(
+    p_num_param => 100,
+    p_vc2_param => 'some text'));
+  -- do something with the result...
 END;
-/
+/ --> read more about this escaped slash under "SQL*Plus Special Characters"
 ```
 
 SIGNATURE
 
 ```sql
-FUNCTION to_zip (
-  p_file_collection IN apex_t_export_files -- The file collection to process with APEX_ZIP.
-) RETURN BLOB;
+FUNCTION demo_function (
+  p_num_param IN NUMBER,   -- Some short parameter description.
+  p_vc2_param IN VARCHAR2) -- Another parameter description.
+RETURN BLOB;
 ```
 
 
