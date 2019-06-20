@@ -15,6 +15,8 @@
 
   Test package comment: package, function, procedure, type, trigger
 
+  Test SQL*Plus special characters: @@##//
+
 SIGNATURE
 
 ```sql

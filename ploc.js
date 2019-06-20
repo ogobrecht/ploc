@@ -68,9 +68,9 @@ ploc.getDocData = function (code) {
     while (match = regexItem.exec(code)) {
       var item = {};
       item.description = ploc.utils.reverseString(match[1])
-        .replace('{{@}}','@')  // special SQL*Plus replacements. SQL*Plus is reacting on those special
-        .replace('{{#}}','#')  // characters when they occur as the first character in a line of code.
-        .replace('{{/}}','/'); // That can be bad when you try to write Markdown with sample code.
+        .replace(/{{@}}/g,'@')  // special SQL*Plus replacements. SQL*Plus is reacting on those special
+        .replace(/{{#}}/g,'#')  // characters when they occur as the first character in a line of code.
+        .replace(/{{\/}}/g,'/'); // That can be bad when you try to write Markdown with sample code.
       item.signature = ploc.utils.reverseString(match[2]);
       item.name = ploc.utils.reverseString(match[3]);
       item.type = ploc.utils.capitalizeString(ploc.utils.reverseString(match[4]));

@@ -5,6 +5,8 @@ CREATE OR REPLACE PACKAGE test_package AUTHID current_user IS
   # Leading Level One Header
 
   Test package comment: package, function, procedure, type, trigger
+
+  Test SQL*Plus special characters: {{@}}{{@}}{{#}}{{#}}{{/}}{{/}}
   **/
 
   FUNCTION test_package_function (
