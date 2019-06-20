@@ -1,37 +1,41 @@
-CREATE OR REPLACE PACKAGE DEMO AUTHID current_user IS
+CREATE OR REPLACE PACKAGE demo AUTHID current_user IS
 c_demo_name CONSTANT VARCHAR2(30 CHAR) := 'A demo package for PLOC';
 /**
-PL/SQL Demo Package
+Your Leading Level One Header
+=============================
 
 You can use standard markdown here to describe your package, functions and procedures.
 
 - This is a list entry
 - A second one
 
-[A link](https://daringfireball.net/projects/markdown/basics).
+[A link to Markdown basics](https://daringfireball.net/projects/markdown/basics).
 **/
 
 
-FUNCTION to_zip (
-  p_file_collection IN apex_t_export_files -- The file collection to process with APEX_ZIP.
-) RETURN BLOB;
+FUNCTION demo_function (
+  p_num_param IN NUMBER,   -- Some short parameter description.
+  p_vc2_param IN VARCHAR2) -- Another parameter description.
+RETURN BLOB;
 /**
-Convert a file collection to a zip file.
+Description of the function.
 
 EXAMPLE
 
 ```sql
 DECLARE
-  l_zip BLOB;
+  l_result VARCHAR2(100);
 BEGIN
-    l_zip := plex.to_zip(plex.backapp(
-      p_app_id             => 100,
-      p_include_object_ddl => true
-    ));
-
-  -- do something with the zip file...
+  l_result := demo_function(
+    p_num_param => 100,
+    p_vc2_param => 'some text'));
+  -- do something with the result...
 END;
+{{/}}
 ```
 **/
 
-END DEMO;
+
+PROCEDURE demo_procedure; /** Only a small description. **/
+
+END demo;

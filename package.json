@@ -1,13 +1,13 @@
 {
   "name": "ploc",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "PL/SQL code to doc converter",
   "main": "ploc.js",
   "bin": {
     "ploc": "ploc-cli.js"
   },
   "scripts": {
-    "test": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i 'tests/*.*(pks|sql)'",
+    "test": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\"",
     "build": "npx markdown-toc -i --maxdepth 2 README.md"
   },
   "repository": {
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/ogobrecht/ploc#readme",
   "dependencies": {
-    "glob": "^7.1.2",
+    "glob": "^7.1.4",
     "minimist": "^1.2.0"
   },
   "devDependencies": {
