@@ -394,6 +394,10 @@ to escape the first hash character like so:
 
 ## Changelog
 
+### 0.6.1 - 2018-06-20
+
+- Fixed: Escaped SQL*Plus special characters are now replaced globally
+
 
 ### 0.6.0 - 2018-06-20
 
