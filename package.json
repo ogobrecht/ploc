@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/ogobrecht/ploc#readme",
   "dependencies": {
-    "glob": "^7.1.2",
+    "glob": "^7.1.4",
     "minimist": "^1.2.0"
   },
   "devDependencies": {
