@@ -2,7 +2,7 @@
 
 var ploc = {};
 ploc.opts = {};
-ploc.opts.minItemsForToc = 4;
+ploc.opts.minItemsForToc = 3;
 ploc.utils = {};
 
 
@@ -121,8 +121,8 @@ ploc.getDoc = function (code) {
   var docData = ploc.getDocData(code);
   var provideToc = (docData.items.length >= ploc.opts.minItemsForToc);
 
-  if (docData.header) doc += docData.header + '\n\n\n';
-  if (provideToc) doc += '\n' + docData.toc + '\n\n';
+  if (docData.header) doc += docData.header + '\n\n';
+  if (provideToc) doc += docData.toc + '\n\n';
 
   docData.items.forEach(function (item, i) {
     var level = (i === 0 && !docData.header ? 1 : 2);
