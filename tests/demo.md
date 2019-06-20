@@ -3,12 +3,12 @@
 Your Leading Level One Header
 =============================
 
-- [Package DEMO](#demo)
+- [Package demo](#demo)
 - [Function demo_function](#demo_function)
 - [Procedure demo_procedure](#demo_procedure)
 
 
-<h2><a id="demo"></a>Package DEMO</h2>
+<h2><a id="demo"></a>Package demo</h2>
 <!----------------------------------->
 
 You can use standard markdown here to describe your package, functions and procedures.
@@ -21,7 +21,7 @@ You can use standard markdown here to describe your package, functions and proce
 SIGNATURE
 
 ```sql
-PACKAGE DEMO AUTHID current_user IS
+PACKAGE demo AUTHID current_user IS
 c_demo_name CONSTANT VARCHAR2(30 CHAR) := 'A demo package for PLOC';
 ```
 
