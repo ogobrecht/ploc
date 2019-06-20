@@ -1,8 +1,8 @@
-CREATE OR REPLACE PACKAGE DEMO AUTHID current_user IS
+CREATE OR REPLACE PACKAGE demo AUTHID current_user IS
 c_demo_name CONSTANT VARCHAR2(30 CHAR) := 'A demo package for PLOC';
 /**
-PL/SQL Demo Package
-===================
+Your Leading Level One Header
+=============================
 
 You can use standard markdown here to describe your package, functions and procedures.
 
@@ -31,9 +31,10 @@ BEGIN
     p_vc2_param => 'some text'));
   -- do something with the result...
 END;
-{{/}} --> read more about this escaped slash under "SQL*Plus Special Characters"
+{{/}}
 ```
+**/
 
-***/
+PROCEDURE demo_procedure; /** Only a small description. **/
 
 END DEMO;
