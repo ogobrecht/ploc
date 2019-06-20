@@ -182,7 +182,7 @@ Add a new npm script entry in your package.json - here an example from my PLEX p
     "build:docs": "npx ploc --in PLEX.pks --out README.md",
   },
   "dependencies": {
-    "ploc": "^0.5.0"
+    "ploc": "^0.6.0"
   }
 }
 ```
@@ -250,7 +250,7 @@ We add now a script called `build:all_docs` to our package.json:
     "build:all_docs": "npx ploc",
   },
   "dependencies": {
-    "ploc": "^0.5.0"
+    "ploc": "^0.6.0"
   }
 }
 ```
@@ -281,7 +281,7 @@ One common use case is to place all docs in a docs folder - we change therefore 
     "build:all_docs": "npx --out docs/{file}.md",
   },
   "dependencies": {
-    "ploc": "^0.5.0"
+    "ploc": "^0.6.0"
   }
 }
 ```
@@ -311,7 +311,7 @@ We use here [chokidar](https://www.npmjs.com/package/chokidar-cli) - you can ins
   },
   "dependencies": {
     "chokidar-cli": "^1.2.1",
-    "ploc": "^0.5.0"
+    "ploc": "^0.6.0"
   }
 }
 ```
