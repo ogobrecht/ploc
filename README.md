@@ -15,6 +15,8 @@
 
 <!-- tocstop -->
 
+![Preview](preview.png)
+
 ## Description
 
 PLOC is a simple PL/SQL code to doc converter which supports comments written in Markdown and generates Markdown files ready to use for your documentation. It is a npm package and therefore written in JavaScript. Simple means here really simple - the converter is only about 120 lines of commented code. Here a short demo package spec which demonstrates the idea behind PLOC:
@@ -393,7 +395,7 @@ to escape the first hash character like so:
 ## Changelog
 
 
-### 0.6.0 - 2018-06-xx
+### 0.6.0 - 2018-06-20
 
 - Improved generated document structure
     - A leading level one header in the first comment (usually the package description) is used as the overall document header
