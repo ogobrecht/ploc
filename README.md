@@ -182,7 +182,7 @@ Add a new npm script entry in your package.json - here an example from my PLEX p
     "build:docs": "npx ploc --in PLEX.pks --out README.md",
   },
   "dependencies": {
-    "ploc": "^0.6.0"
+    "ploc": "^0.6.1"
   }
 }
 ```
@@ -250,7 +250,7 @@ We add now a script called `build:all_docs` to our package.json:
     "build:all_docs": "npx ploc",
   },
   "dependencies": {
-    "ploc": "^0.6.0"
+    "ploc": "^0.6.1"
   }
 }
 ```
@@ -278,10 +278,10 @@ One common use case is to place all docs in a docs folder - we change therefore 
   "name": "plex",
   "scripts": {
     "build:docs": "npx ploc --in PLEX.pks --out README.md",
-    "build:all_docs": "npx --out docs/{file}.md",
+    "build:all_docs": "npx ploc --out docs/{file}.md",
   },
   "dependencies": {
-    "ploc": "^0.6.0"
+    "ploc": "^0.6.1"
   }
 }
 ```
@@ -290,7 +290,7 @@ Note that the target directory `docs` must already exist - otherwise npm will th
 
 ```sh
 > plex@ build:all_docs /Users/ottmar/code/plex
-> npx --out docs/{file}.md
+> npx ploc --out docs/{file}.md
 
 PLEX.pks => docs/PLEX.md
 src/test_1.pks => docs/test_1.md
@@ -311,7 +311,7 @@ We use here [chokidar](https://www.npmjs.com/package/chokidar-cli) - you can ins
   },
   "dependencies": {
     "chokidar-cli": "^1.2.1",
-    "ploc": "^0.6.0"
+    "ploc": "^0.6.1"
   }
 }
 ```
@@ -374,7 +374,7 @@ will fail. The maximum problem under some circumstances is the [lost of data][ex
 To avoid these problems we have to escape the characters like so: `{{/}} {{#}} {{@}}`. 
 PLOC does unescape these characters when generating your markdown docs.
 
-[example]: http://www.oraclefindings.com/2016/08/16/sql-plus-hash-pound/)
+[example]: http://www.oraclefindings.com/2016/08/16/sql-plus-hash-pound/
 
 
 ## Markdown Headers
@@ -405,7 +405,7 @@ to escape the first hash character like so:
     - A leading level one header in the first comment (usually the package description) is used as the overall document header
     - An eventually rendered TOC is following this overall header
 - PLOC does now unescape escaped special SQL*Plus characters (see section "SQL\*Plus Special Characters")
-- Change minimum number of items to render a TOC from 4 to 3
+- Changed minimum number of items to render a TOC from 4 to 3
 
 
 ### 0.5.0 - 2018-12-23
