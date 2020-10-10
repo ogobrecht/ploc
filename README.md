@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD012 MD048 -->
+
 # PLOC - PL/SQL code to doc converter
 
 <!-- toc -->
@@ -9,7 +11,7 @@
 - [Example for multiple files](#example-for-multiple-files)
 - [Automation with a file watcher](#automation-with-a-file-watcher)
 - [Read more about npm scripts](#read-more-about-npm-scripts)
-- [SQL*Plus Special Characters](#sqlplus-special-characters)
+- [SQL\*Plus Special Characters](#sqlplus-special-characters)
 - [Markdown Headers](#markdown-headers)
 - [Changelog](#changelog)
 
@@ -255,8 +257,7 @@ We add now a script called `build:all_docs` to our package.json:
 }
 ```
 
-As you can see we omit simply all parameters and therefore the defaults are used (in = `**/*.pks`, 
-out = `{folder}{file}.md`), which results in converting all found `*.pks` files in all directories and subdirectories. Here the output of this conversion:
+As you can see we omit simply all parameters and therefore the defaults are used (in = `**/*.pks`, out = `{folder}{file}.md`), which results in converting all found `*.pks` files in all directories and subdirectories. Here the output of this conversion:
 
 ```sh
 > plex@ build:all_docs /Users/ottmar/code/plex
@@ -269,7 +270,7 @@ src/test_2.pks => src/test_2.md
 
 Obviously I have some test files in the `src` folder. You can also see on this example that you can use the variables `{folder}` (directory path of source file with trailing directory separator) and `{file}` (source file name without extension) in your `out` parameter. The `ìn` parameter is a standard [glob file pattern](https://github.com/isaacs/node-glob#glob).
 
-GLOB COMMENTS: If you use wildcards in your `in` parameter and you have the feeling it does not work, then try to wrap the parameter in single or double quotes. Depending on your operating system the shell already expands the wildcard characters and ploc gets only the first match - you can debug the arguments by providing `-d` or `--debug` to the call like so: `npx ploc -d -i 'tests/*.*(pks|sql)'` (process all *.pks and *.sql files in dir tests). For Windows users: Please use only the forward slash as a directory separator in your glob patterns!
+GLOB COMMENTS: If you use wildcards in your `in` parameter and you have the feeling it does not work, then try to wrap the parameter in single or double quotes. Depending on your operating system the shell already expands the wildcard characters and ploc gets only the first match - you can debug the arguments by providing `-d` or `--debug` to the call like so: `npx ploc -d -i 'tests/*.*(pks|sql)'` (process all \*.pks and \*.sql files in dir tests). For Windows users: Please use only the forward slash as a directory separator in your glob patterns!
 
 One common use case is to place all docs in a docs folder - we change therefore our `build:all_docs` script:
 
@@ -358,20 +359,20 @@ PLEX.pks => README.md
 
 ## Read more about npm scripts
 
-- https://medium.freecodecamp.org/introduction-to-npm-scripts-1dbb2ae01633
-- https://medium.freecodecamp.org/why-i-left-gulp-and-grunt-for-npm-scripts-3d6853dd22b8
-- https://css-tricks.com/why-npm-scripts/
+- [Introduction to NPM Scripts](https://medium.freecodecamp.org/introduction-to-npm-scripts-1dbb2ae01633)
+- [Why I Left Gulp and Grunt for npm Scripts](https://medium.freecodecamp.org/why-i-left-gulp-and-grunt-for-npm-scripts-3d6853dd22b8)
+- [Why npm Scripts?](https://css-tricks.com/why-npm-scripts/)
 
 
-## SQL*Plus Special Characters
+## SQL\*Plus Special Characters
 
-`/`, `#` and `@` are special SQL*Plus characters. If they occur as the first
-character in a line then SQL*Plus does some special functionality - independend
+`/`, `#` and `@` are special SQL\*Plus characters. If they occur as the first
+character in a line then SQL\*Plus does some special functionality - independend
 from the occurence inside a comment or a string literal. So be warned - the
-minimum problem you will get is that compiling PL/SQL code in an SQL*Plus script
+minimum problem you will get is that compiling PL/SQL code in an SQL\*Plus script
 will fail. The maximum problem under some circumstances is the [lost of data][example].
 
-To avoid these problems we have to escape the characters like so: `{{/}} {{#}} {{@}}`. 
+To avoid these problems we have to escape the characters like so: `{{/}} {{#}} {{@}}`.
 PLOC does unescape these characters when generating your markdown docs.
 
 [example]: http://www.oraclefindings.com/2016/08/16/sql-plus-hash-pound/
@@ -381,7 +382,7 @@ PLOC does unescape these characters when generating your markdown docs.
 
 The generated doc is already structured with level one and level two headers. If you want
 to use Markdown headers in your comments then please use level three to level six headers.
-Please beware of the potential SQL*Plus issues described above. To avoid these you have
+Please beware of the potential SQL\*Plus issues described above. To avoid these you have
 to escape the first hash character like so:
 
 ```md
@@ -394,17 +395,21 @@ to escape the first hash character like so:
 
 ## Changelog
 
+### 0.6.2 - 2020-10-10
+
+- Fixed: Add a markdownlint configuration on top of each generated file to get no warnings for rules MD003, MD012, MD033 (also see issue [#5](https://github.com/ogobrecht/ploc/issues/5))
+
 ### 0.6.1 - 2018-06-20
 
-- Fixed: Escaped SQL*Plus special characters are now replaced globally
+- Fixed: Escaped SQL\*Plus special characters are now replaced globally
 
 
 ### 0.6.0 - 2018-06-20
 
 - Improved generated document structure
-    - A leading level one header in the first comment (usually the package description) is used as the overall document header
-    - An eventually rendered TOC is following this overall header
-- PLOC does now unescape escaped special SQL*Plus characters (see section "SQL\*Plus Special Characters")
+  - A leading level one header in the first comment (usually the package description) is used as the overall document header
+  - An eventually rendered TOC is following this overall header
+- PLOC does now unescape escaped special SQL\*Plus characters (see section "SQL\*Plus Special Characters")
 - Changed minimum number of items to render a TOC from 4 to 3
 
 
