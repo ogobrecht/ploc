@@ -11,7 +11,7 @@ Test SQL*Plus special characters: {{@}}{{@}}{{#}}{{#}}{{/}}{{/}}
 
 FUNCTION test_package_function (
   p_test_parameter_1 IN my_table.my_column%TYPE, -- Test, if following keywords break the regex: package, function, procedure, type, trigger
-  p_test_parameter_2 IN VARCHAR2 -- Test, if following keywords break the regex: package, function, procedure, type, trigger
+  p_test_parameter_2 IN VARCHAR2                 -- Test, if following keywords break the regex: package, function, procedure, type, trigger
 ) RETURN VARCHAR2;
 /**
 Test package function comment: package, function, procedure, type, trigger
@@ -21,11 +21,19 @@ Test package function comment: package, function, procedure, type, trigger
 **/
 
 PROCEDURE test_package_procedure (
-  p_test_parameter_1 IN VARCHAR2 -- Test, if following keywords break the regex: package, function, procedure, type, trigger
+  p_test_parameter_1 IN VARCHAR2          -- Test, if following keywords break the regex: package, function, procedure, type, trigger
   p_test_parameter_2 IN my_table%ROWTYPE, -- Test, if following keywords break the regex: package, function, procedure, type, trigger
 );
 /**
 Test package procedure comment: package, function, procedure, type, trigger
+**/
+
+PROCEDURE test_package_procedure (
+  p_test_parameter_3 IN NUMBER    -- Test overloaded procedure to check unique anchor names
+  p_test_parameter_4 IN VARCHAR2, 
+);
+/**
+Dummy description
 **/
 
 END test_package;
@@ -34,7 +42,7 @@ END test_package;
 
 CREATE FUNCTION test_function_standalone (
   p_test_parameter_1 IN my_table.my_column%TYPE, -- Test, if following keywords break the regex: package, function, procedure, type, trigger
-  p_test_parameter_2 IN VARCHAR2 -- Test, if following keywords break the regex: package, function, procedure, type, trigger
+  p_test_parameter_2 IN VARCHAR2                 -- Test, if following keywords break the regex: package, function, procedure, type, trigger
 ) RETURN VARCHAR2;
 /**
 Test function standalone comment: package, function, procedure, type, trigger
