@@ -7,7 +7,7 @@
 <li><a href="#test_package">Package test_package</a></li>
 <li><a href="#test_package_function">Func. test_package_function</a></li>
 <li><a href="#test_package_procedure">Proc. test_package_procedure</a></li>
-<li><a href="#test_package_procedure-2">Proc. test_package_procedure</a></li>
+<li><a href="#test_package_procedure-1">Proc. test_package_procedure</a></li>
 <li><a href="#test_function_standalone">Func. test_function_standalone</a></li>
 <li><a href="#test_trigger">Trigger test_trigger</a></li>
 <li><a href="#test-object">Type "Test Object"</a></li>
@@ -63,7 +63,7 @@ PROCEDURE test_package_procedure (
 ```
 
 
-<a id="test_package_procedure-2"></a>
+<a id="test_package_procedure-1"></a>
 ## Proc. test_package_procedure
 
 Dummy description

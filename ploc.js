@@ -73,7 +73,7 @@ ploc.getDocData = function (code) {
     data.items[i].anchor = ploc.utils.getAnchor(item.name);
     // ensure unique anchors
     if (anchors.indexOf(data.items[i].anchor) !== -1) {
-      var j = 1;
+      var j = 0;
       var anchor = data.items[i].anchor;
       while (anchors.indexOf(data.items[i].anchor) !== -1 && j++ <= 100 ) {
         data.items[i].anchor = anchor + '-' + j;
