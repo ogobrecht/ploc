@@ -17,17 +17,28 @@ ploc.utils.capitalizeString = function (string) {
 
 
 ploc.utils.getMarkdownHeader = function (level, header, anchor) {
-  var markdownHeader = '';
+  var markdownHeader;
+  // create HTML or Markdown header depending on anchor length
   if (anchor.length > 0) {
-    markdownHeader += '<a id="' + anchor + '"></a>\n';
+    markdownHeader = '<h' + level + '>' +
+      '<a id="' + anchor + '"></a>' +
+      header +
+      '</h' + level + '>';
+    markdownHeader += '\n<!--' + (level === 1 ? '=' : '-').repeat((markdownHeader.length - 7)) + '-->';
+  } else {
+    markdownHeader = header + '\n' + (level === 1 ? '=' : '-').repeat(header.length);
   }
-  markdownHeader += '#'.repeat(level) + ' ' + header;
   return markdownHeader;
 };
 
 
 ploc.utils.getAnchor = function (name) {
   return name.trim().toLowerCase().replace(/[^\w\- ]+/g, '').replace(/\s/g, '-').replace(/\-+$/, '');
+};
+
+
+ploc.utils.getAndStripLeadingHeader = function (description, headerLevel) {
+  return 'testus';
 };
 
 
@@ -44,7 +55,7 @@ ploc.getDocData = function (code) {
   var anchors = [];
   var data = {};
   data.header = '';
-  data.toc = '<ul class="toc">\n';
+  data.toc = '';
   data.items = [];
   code = ploc.utils.reverseString(code);
 
@@ -62,7 +73,7 @@ ploc.getDocData = function (code) {
         .replace(/{{\/}}/g,'/'); // That can be bad when you try to write Markdown with sample code.
       item.signature = ploc.utils.reverseString(match[2]);
       item.name = ploc.utils.reverseString(match[3]);
-      item.type = ploc.utils.capitalizeString(ploc.utils.reverseString(match[4])).replace('Procedure', 'Proc.').replace('Function', 'Func.');
+      item.type = ploc.utils.capitalizeString(ploc.utils.reverseString(match[4]));
       data.items.push(item);
     }
   }
@@ -71,12 +82,12 @@ ploc.getDocData = function (code) {
   data.items.reverse().forEach(function (item, i) {
     data.items[i].header = data.items[i].type + ' ' + data.items[i].name;
     data.items[i].anchor = ploc.utils.getAnchor(item.name);
+
     // ensure unique anchors
     if (anchors.indexOf(data.items[i].anchor) !== -1) {
       var j = 1;
-      var anchor = data.items[i].anchor;
-      while (anchors.indexOf(data.items[i].anchor) !== -1 && j++ <= 100 ) {
-        data.items[i].anchor = anchor + '-' + j;
+      while (anchors.indexOf(data.items[i].anchor + '-' + j) !== -1 && j++ <= 10) {
+        data.items[i].anchor = data.items[i].anchor + '-' + j;
       }
     }
 
@@ -97,10 +108,9 @@ ploc.getDocData = function (code) {
     }
 
     anchors.push(data.items[i].anchor);
-    data.toc += '<li><a href="#' + data.items[i].anchor + '">' + data.items[i].header + '</a></li>\n';
+    data.toc += '- [' + data.items[i].header + '](#' + data.items[i].anchor + ')\n';
   });
 
-  data.toc += '</ul>\n';
   return data;
 };
 
