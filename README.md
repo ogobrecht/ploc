@@ -61,7 +61,7 @@ END;
 ```
 **/
 
-END DEMO;
+END demo;
 ~~~
 
 - The converter picks up everything between the keywords PACKAGE, FUNCTION, PROCEDURE, TYPE or TRIGGER and a following PL/SQL multiline comment starting with `/**` and ending with `**/` (the double stars are used to support normal multiline comments)
@@ -394,6 +394,12 @@ to escape the first hash character like so:
 
 
 ## Changelog
+
+### 0.6.3 - 2021-03-13
+
+- Fixed: TOC links only working with generated HTML header IDs
+- Fixed: TOC Links to overloaded functions and procedures are not working
+- Use pure Markdown for the headers since many Markdown processors automatically generate header IDs - for example in VS Code it is working out of the box and GitHub does it also
 
 ### 0.6.2 - 2020-10-10
 
