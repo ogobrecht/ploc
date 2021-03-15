@@ -34,7 +34,7 @@ ploc.getDocData = function (code) {
   var anchors = [];
   var data = {};
   data.header = '';
-  data.toc = '';
+  data.toc = (ploc.opts.tocStyles ? '<ul style="' + ploc.opts.tocStyles + '">\n' : '');
   data.items = [];
   code = ploc.utils.reverseString(code);
 
@@ -48,9 +48,9 @@ ploc.getDocData = function (code) {
     while (match = regexItem.exec(code)) {
       var item = {};
       item.description = ploc.utils.reverseString(match[1])
-        .replace(/{{@}}/g,'@')   // Special SQL*Plus replacements. SQL*Plus is reacting on those special
-        .replace(/{{#}}/g,'#')   // characters when they occur as the first character in a line of code.
-        .replace(/{{\/}}/g,'/'); // That can be bad when you try to write Markdown with sample code.
+        .replace(/{{@}}/g, '@')   // Special SQL*Plus replacements. SQL*Plus is reacting on those special
+        .replace(/{{#}}/g, '#')   // characters when they occur as the first character in a line of code.
+        .replace(/{{\/}}/g, '/'); // That can be bad when you try to write Markdown with sample code.
       item.signature = ploc.utils.reverseString(match[2]);
       item.name = ploc.utils.reverseString(match[3]);
       item.type = ploc.utils.capitalizeString(ploc.utils.reverseString(match[4]));
@@ -84,14 +84,20 @@ ploc.getDocData = function (code) {
     if (anchors.indexOf(data.items[i].anchor) !== -1) {
       var j = 0;
       var anchor = data.items[i].anchor;
-      while (anchors.indexOf(data.items[i].anchor) !== -1 && j++ <= 100 ) {
+      while (anchors.indexOf(data.items[i].anchor) !== -1 && j++ <= 100) {
         data.items[i].anchor = anchor + '-' + j;
       }
     }
     anchors.push(data.items[i].anchor);
-    data.toc += '- [' + data.items[i].header + '](#' + data.items[i].anchor + ')\n';
+    data.toc += (
+      ploc.opts.tocStyles ?
+        '<li><a href="#' + data.items[i].anchor + '">' + data.items[i].header + '</a></li>\n' :
+        '- [' + data.items[i].header + '](#' + data.items[i].anchor + ')\n'
+    );
 
   });
+
+  data.toc += (ploc.opts.tocStyles ? '</ul>\n' : '');
 
   return data;
 };

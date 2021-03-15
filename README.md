@@ -413,6 +413,12 @@ to escape the first hash character like so:
 
 ## Changelog
 
+### 0.7.0 - 2021-03-15
+
+- New parameter: `--tocStyles` to provide inline styles to use for the TOC
+  - If provided, the TOC is generated as a HTML unordered list instead of a Markdown list to be able to use the styles.
+  - Example `npx ploc --in "src/*.pks" --out docs/{file}.md --tocStyles "float: right;"`
+
 ### 0.6.3 - 2021-03-13
 
 - Fixed: TOC links only working with generated HTML header IDs
