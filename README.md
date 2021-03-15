@@ -218,25 +218,30 @@ Notes:
 
 Usage: ploc [options]
 
-  -i, --in:     The glob pattern for the code files to read
+  -i, --in:     The glob pattern for the code files to read.
                 (default is "**/*.pks")
 
-  -o, --out:    The pattern for the doc files to write
+  -o, --out:    The pattern for the doc files to write.
                 (default is "{folder}{file}.md")
                 {folder} = in file path with trailing directory separator
                 {file} = in file name without extension
 
   -t, --toc:    How many items (methods including object/package name) the
-                code must have before a toc is included
+                code must have before a TOC is included.
                 (default is 3)
 
-  -h, --help:   Command line help
+  --tocStyles:  Inline styles to use for the TOC. If provided, the TOC
+                is generated as a HTML unordered list instead of a
+                Markdown list to be able to use the styles.
 
-  -d, --debug:  Write CLI arguments to console
+  -h, --help:   Command line help.
 
-Example 1: npx ploc --in '**/*.pks' --out {folder}{file}.md
+  -d, --debug:  Write CLI arguments to console.
+
+Example 1: npx ploc --in "**/*.pks" --out {folder}{file}.md
 Example 2: npx ploc --out docs/{file}.md
-Example 3: npx ploc -i '**/*.*(pks|sql)' -o docs/{file}.md -t 5
+Example 3: npx ploc -i "**/*.*(pks|sql)" -o docs/{file}.md -t 5
+Example 4: npx ploc --in "src/*.pks" --out docs/{file}.md --tocStyles "float: right;"
 https://blog.npmjs.org/post/162869356040/introducing-npx-an-npm-package-runner
 ```
 
