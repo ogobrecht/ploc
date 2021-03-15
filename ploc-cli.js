@@ -7,7 +7,7 @@ var ploc = require('./ploc.js');
 // Util for parsing arguments: We reuse and extend ploc attributes here.
 ploc.utils.parseCliArgs = require('minimist');
 ploc.opts.cliArgs = {
-  string: ["in", "out"],
+  string: ["in", "out", "tocStyles"],
   boolean: "help",
   alias: {
     i: "in",
@@ -27,25 +27,30 @@ ploc.opts.cliHelp = [
   '',
   'Usage: ploc [options]',
   '',
-  '  -i, --in:     The glob pattern for the code files to read',
+  '  -i, --in:     The glob pattern for the code files to read.',
   '                (default is "' + ploc.opts.cliArgs.default.in + '")',
   '',
-  '  -o, --out:    The pattern for the doc files to write',
+  '  -o, --out:    The pattern for the doc files to write.',
   '                (default is "' + ploc.opts.cliArgs.default.out + '")',
   '                {folder} = in file path with trailing directory separator',
   '                {file} = in file name without extension',
   '',
   '  -t, --toc:    How many items (methods including object/package name) the',
-  '                code must have before a TOC is included',
+  '                code must have before a TOC is included.',
   '                (default is ' + ploc.opts.cliArgs.default.toc + ')',
   '',
-  '  -h, --help:   Command line help',
+  '  --tocStyles:  Inline styles to use for the TOC. If provided, the TOC',
+  '                is generated as a HTML unordered list instead of a',
+  '                Markdown list to be able to use the styles.',
   '',
-  '  -d, --debug:  Write CLI arguments to console',
+  '  -h, --help:   Command line help.',
+  '',
+  '  -d, --debug:  Write CLI arguments to console.',
   '',
   'Example 1: npx ploc --in "**/*.pks" --out {folder}{file}.md',
   'Example 2: npx ploc --out docs/{file}.md',
   'Example 3: npx ploc -i "**/*.*(pks|sql)" -o docs/{file}.md -t 5',
+  'Example 4: npx ploc --in "src/*.pks" --out docs/{file}.md --tocStyles "float: right;"',
   'https://blog.npmjs.org/post/162869356040/introducing-npx-an-npm-package-runner',
   '',
 ].join('\n');
@@ -97,8 +102,9 @@ ploc.utils.files2docs = function (inFilePattern, outFilePattern) {
 // Parse cli arguments.
 var args = ploc.utils.parseCliArgs(process.argv.slice(2), ploc.opts.cliArgs);
 
-// Write back minumum items for toc, as this is later used internally by ploc.getDoc.
+// Save args for TOC as these are used internally by ploc.getDoc.
 ploc.opts.minItemsForToc = args.toc;
+ploc.opts.tocStyles = args.tocStyles;
 
 // Print help, if options -h or --help were provided.
 if (args.help) {
