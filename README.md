@@ -327,7 +327,7 @@ src/test_2.pks => src/test_2.md
 Obviously I have some test files in the `src` folder. You can also see on this
 example that you can use the variables `{folder}` (directory path of source file
 with trailing directory separator) and `{file}` (source file name without
-extension) in your `out` parameter. The `ìn` parameter is a standard [glob file
+extension) in your `out` parameter. The `in` parameter is a standard [glob file
 pattern](https://github.com/isaacs/node-glob#glob).
 
 GLOB COMMENTS: If you use wildcards in your `in` parameter and you have the
