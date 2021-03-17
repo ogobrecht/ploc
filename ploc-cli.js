@@ -8,7 +8,7 @@ var ploc = require('./ploc.js');
 ploc.utils.parseCliArgs = require('minimist');
 ploc.opts.cliArgs = {
   string: ["in", "out", "tocStyles"],
-  boolean: "help",
+  boolean: ["help", "autoHeaderIds"],
   alias: {
     i: "in",
     o: "out",
@@ -27,30 +27,33 @@ ploc.opts.cliHelp = [
   '',
   'Usage: ploc [options]',
   '',
-  '  -i, --in:     The glob pattern for the code files to read.',
-  '                (default is "' + ploc.opts.cliArgs.default.in + '")',
+  '-i, --in:         The glob pattern for the code files to read.',
+  '                  (default is "' + ploc.opts.cliArgs.default.in + '")',
   '',
-  '  -o, --out:    The pattern for the doc files to write.',
-  '                (default is "' + ploc.opts.cliArgs.default.out + '")',
-  '                {folder} = in file path with trailing directory separator',
-  '                {file} = in file name without extension',
+  '-o, --out:        The pattern for the doc files to write.',
+  '                  (default is "' + ploc.opts.cliArgs.default.out + '")',
+  '                  {folder} = in file path with trailing directory separator',
+  '                  {file} = in file name without extension',
   '',
-  '  -t, --toc:    How many items (methods including object/package name) the',
-  '                code must have before a TOC is included.',
-  '                (default is ' + ploc.opts.cliArgs.default.toc + ')',
+  '-t, --toc:        How many items (methods including object/package name) the',
+  '                  code must have before a TOC is included.',
+  '                  (default is ' + ploc.opts.cliArgs.default.toc + ')',
   '',
-  '  --tocStyles:  Inline styles to use for the TOC. If provided, the TOC',
-  '                is generated as a HTML unordered list instead of a',
-  '                Markdown list to be able to use the styles.',
+  '--tocStyles:      Inline styles to use for the TOC. If provided, the TOC',
+  '                  is generated as a HTML unordered list instead of a',
+  '                  Markdown list to be able to use the styles.',
   '',
-  '  -h, --help:   Command line help.',
+  '--autoHeaderIds:  Boolean - if present the headers are generated in HTML',
+  '                  format instead of Markdown to be able to integrate the IDs.',
   '',
-  '  -d, --debug:  Write CLI arguments to console.',
+  '-h, --help:       Command line help.',
+  '',
+  '-d, --debug:      Write CLI arguments to console.',
   '',
   'Example 1: npx ploc --in "**/*.pks" --out {folder}{file}.md',
   'Example 2: npx ploc --out docs/{file}.md',
   'Example 3: npx ploc -i "**/*.*(pks|sql)" -o docs/{file}.md -t 5',
-  'Example 4: npx ploc --in "src/*.pks" --out docs/{file}.md --tocStyles "float: right;"',
+  'Example 4: npx ploc --in "src/*.pks" --out docs/{file}.md --autoHeaderIds --tocStyles "float: right;"',
   'https://blog.npmjs.org/post/162869356040/introducing-npx-an-npm-package-runner',
   '',
 ].join('\n');
@@ -103,6 +106,7 @@ ploc.utils.files2docs = function (inFilePattern, outFilePattern) {
 var args = ploc.utils.parseCliArgs(process.argv.slice(2), ploc.opts.cliArgs);
 
 // Save args for TOC as these are used internally by ploc.getDoc.
+ploc.opts.autoHeaderIds = args.autoHeaderIds;
 ploc.opts.minItemsForToc = args.toc;
 ploc.opts.tocStyles = args.tocStyles;
 

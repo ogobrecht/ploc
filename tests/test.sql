@@ -2,7 +2,7 @@ CREATE OR REPLACE PACKAGE test_package AUTHID current_user IS
 c_test_name    CONSTANT VARCHAR2(30 CHAR) := 'blabla';
 c_test_version CONSTANT VARCHAR2(10 CHAR) := '0.1.0';
 /**
-# Leading Level One Header
+{{#}} Leading Level One Header
 
 Test package comment: package, function, procedure, type, trigger
 

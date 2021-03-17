@@ -109,12 +109,18 @@ ploc.getDoc = function (code) {
   var docData = ploc.getDocData(code);
   var provideToc = (docData.items.length >= ploc.opts.minItemsForToc);
 
-  if (docData.header) doc += docData.header + '\n\n';
-  if (provideToc) doc += docData.toc + '\n\n';
+  doc += (docData.header ? docData.header + '\n\n' : '');
+  doc += (provideToc ? docData.toc + '\n\n' : '');
 
   docData.items.forEach(function (item, i) {
     var level = (i === 0 && !docData.header ? 1 : 2);
-    doc += '#'.repeat(level) + ' ' + item.header + '\n\n' +
+    doc += (
+      ploc.opts.autoHeaderIds ?
+        '<h' + level + '><a id="' + item.anchor + '"></a>' + item.header + '</h' + level + '>\n' +
+        '<!--' + (level === 1 ? '=' : '-').repeat((15 + item.header.length + item.anchor.length)) + '-->\n\n'
+        :
+        '#'.repeat(level) + ' ' + item.header + '\n\n'
+    ) +
       item.description + '\n\n' +
       'SIGNATURE\n\n' +
       '```sql\n' +
