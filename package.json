@@ -7,8 +7,10 @@
     "ploc": "ploc-cli.js"
   },
   "scripts": {
-    "test": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\"",
-    "test_styles": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\" --tocStyles \"float: right;\"",
+    "test_normal": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\"",
+    "test_autoHeaderIds": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\" --autoHeaderIds \"float: right;\"",
+    "test_tocStyles": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\" --tocStyles \"float: right;\"",
+    "test_autoHeaderIds_and_tocStyles": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\" --autoHeaderIds --tocStyles \"float: right;\"",
     "build": "npx markdown-toc -i --maxdepth 2 README.md"
   },
   "repository": {
