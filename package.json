@@ -11,7 +11,6 @@
     "test_autoHeaderIds": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\" --autoHeaderIds \"float: right;\"",
     "test_tocStyles": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\" --tocStyles \"float: right;\"",
     "test_autoHeaderIds_and_tocStyles": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\" --autoHeaderIds --tocStyles \"float: right;\"",
-    "test_folder": "echo \"Please check output out/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\" -o out/{file}.md",
     "build": "npx markdown-toc -i --maxdepth 2 README.md"
   },
   "repository": {
@@ -32,9 +31,11 @@
   },
   "homepage": "https://github.com/ogobrecht/ploc#readme",
   "dependencies": {
-    "glob": "^7.1.4",
-    "minimist": "^1.2.0",
-    "path": "^0.12.7"
+    "fs-extra": "^11.2.0",
+    "glob": "^11.0.0",
+    "minimist": "^1.2.8",
+    "npm-check-updates": "^17.1.11",
+    "regex": "^5.0.2"
   },
   "devDependencies": {
     "markdown-toc": "^1.2.0"
