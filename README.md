@@ -249,7 +249,7 @@ Usage: ploc [options]
 
 -o, --out:        The pattern for the doc files to write.
                   (default is "{folder}{file}.md")
-                  {folder} = in file path with trailing directory separator 
+                  {folder} = in file path with trailing directory separator
                   {file} = in file name without extension
 
 -t, --toc:        How many items (methods including object/package name) the
@@ -355,8 +355,7 @@ our `build:all_docs` script:
 }
 ```
 
-Note that the target directory `docs` must already exist - otherwise npm will
-throw an error. The resulting output should something like this:
+The resulting output should something like this:
 
 ```sh
 > plex@ build:all_docs /Users/ottmar/code/plex
@@ -470,6 +469,11 @@ to escape the first hash character like so:
 
 
 ## Changelog
+
+### 0.9.0 - 2024-12-xx
+
+- Non existing folders for generated docs will be created automatically (thanks to github.com/erstert3st for the pull request)
+- Update dependencies
 
 ### 0.8.0 - 2021-03-17
 
