@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs-extra');
 const { regex } = require('regex');
 const ploc = {};
 ploc.opts = {};
@@ -29,7 +28,6 @@ ploc.getDocData = function (code) {
 
     // We need to work on a reversed string to avoid to fetch too much text, so the keywords for package, function and so on are looking ugly...
     // https://github.com/slevithan/regex
-    // try this: /\/\*\*.*?\*\*\/\s*(.*?([\w$#]+|"[[:print:]]+")(?:\.(?:[\w$#]+|"[[:print:]]+")){0,1}\s+(reggirt|epyt|erudecorp|noitcnuf|egakcap))\s+(?:rebmem\s+){0,1}(?:lanif\s+){0,1}(?:citats\s+){0,1}(?:(?:ecalper\s+ro\s+){0,1}etaerc){0,1}/gimsx
     const
         regexItem = regex('gim')`                                        # !!! DO NOT FORGET: WE ARE WORKING ON A REVERSED STRING !!!
                             \s* /\*{2,} \s*                              # doc comment end
