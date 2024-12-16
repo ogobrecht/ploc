@@ -14,7 +14,8 @@ ploc.opts.cliArgs = {
         o: "out",
         t: "toc",
         h: "help",
-        d: "debug"
+        d: "debug",
+        v: "version"
     },
     default: {
         in: "**/*.pks",
@@ -50,6 +51,8 @@ ploc.opts.cliHelp = [
     '-h, --help:       Command line help.',
     '',
     '-d, --debug:      Write CLI arguments to console.',
+    '',
+    '-v, --version:    Write Version to console.',
     '',
     'Example 1: npx ploc --in "**/*.pks" --out {folder}{file}.md',
     'Example 2: npx ploc --out docs/{file}.md',
@@ -113,8 +116,12 @@ ploc.opts.autoHeaderIds = args.autoHeaderIds;
 ploc.opts.minItemsForToc = args.toc;
 ploc.opts.tocStyles = args.tocStyles;
 
-// Print help, if options -h or --help were provided.
-if (args.help) {
+// Print version, if options -v or --version were provided.
+if (args.version) {
+    const packageJson = require("./package.json");
+    console.log(packageJson.version);
+} else if (args.help) {
+//  Print help, if options -h or --help were provided.
     console.log(ploc.opts.cliHelp);
 } else {
     // Otherwise create the documents.
