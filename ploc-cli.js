@@ -116,13 +116,14 @@ ploc.opts.autoHeaderIds = args.autoHeaderIds;
 ploc.opts.minItemsForToc = args.toc;
 ploc.opts.tocStyles = args.tocStyles;
 
-// Print version, if options -v or --version were provided.
-if (args.version) {
+// Print help, if options -h or --help were provided.
+if (args.help) {
+    console.log(ploc.opts.cliHelp);
+}
+else if (args.help) {
+    // Print version, if options -v or --version were provided.
     const packageJson = require("./package.json");
     console.log(packageJson.version);
-} else if (args.help) {
-//  Print help, if options -h or --help were provided.
-    console.log(ploc.opts.cliHelp);
 } else {
     // Otherwise create the documents.
     if (args.debug) {
