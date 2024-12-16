@@ -120,7 +120,7 @@ ploc.opts.tocStyles = args.tocStyles;
 if (args.help) {
     console.log(ploc.opts.cliHelp);
 }
-else if (args.help) {
+else if (args.version) {
     // Print version, if options -v or --version were provided.
     const packageJson = require("./package.json");
     console.log(packageJson.version);
