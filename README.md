@@ -370,8 +370,8 @@ src/test_2.pks => docs/test_2.md
 ## Automation with a file watcher
 
 We use here [chokidar](https://www.npmjs.com/package/chokidar-cli) - you can
-install it with `npm install chokidar-cli`. Then we create a watch script entry
-- here it is named `watch:docs`.
+install it with `npm install chokidar-cli`. Then we create a watch script
+entry - here it is named `watch:docs`.
 
 ```js
 {
@@ -472,6 +472,7 @@ to escape the first hash character like so:
 
 ### 0.9.0 - 2024-12-xx
 
+- Fix parsing issue for complex objects (thanks to github.com/gpaulissen for providing feedback and a test object)
 - Non existing folders for generated docs will be created automatically (thanks to github.com/erstert3st for the pull request)
 - Update dependencies
 

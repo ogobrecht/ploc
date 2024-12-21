@@ -1,16 +1,16 @@
 {
   "name": "ploc",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "PL/SQL code to doc converter",
   "main": "ploc.js",
   "bin": {
     "ploc": "ploc-cli.js"
   },
   "scripts": {
-    "test_normal": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\"",
-    "test_autoHeaderIds": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\" --autoHeaderIds \"float: right;\"",
-    "test_tocStyles": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\" --tocStyles \"float: right;\"",
-    "test_autoHeaderIds_and_tocStyles": "echo \"Please check output tests/*.md!\" && node ploc-cli.js -d -i \"tests/*.*(pks|sql)\" --autoHeaderIds --tocStyles \"float: right;\"",
+    "test_normal": "echo \"Please check output tests/*.md!\" && npx ploc -d -i \"tests/*.*(pks|sql)\"",
+    "test_autoHeaderIds": "echo \"Please check output tests/*.md!\" && npx ploc -d -i \"tests/*.*(pks|sql)\" --autoHeaderIds \"float: right;\"",
+    "test_tocStyles": "echo \"Please check output tests/*.md!\" && npx ploc -d -i \"tests/*.*(pks|sql)\" --tocStyles \"float: right;\"",
+    "test_autoHeaderIds_and_tocStyles": "echo \"Please check output tests/*.md!\" && npx ploc -d -i \"tests/*.*(pks|sql)\" --autoHeaderIds --tocStyles \"float: right;\"",
     "build": "npx markdown-toc -i --maxdepth 2 README.md"
   },
   "repository": {
